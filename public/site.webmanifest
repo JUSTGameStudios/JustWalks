@@ -1,0 +1,16 @@
+{
+  "name": "JustWalks",
+  "short_name": "JustWalks",
+  "description": "Generate fresh walking routes by duration",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
