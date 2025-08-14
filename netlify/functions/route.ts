@@ -58,8 +58,6 @@ const handler: Handler = async (event, context) => {
 
     const requestBody = {
       coordinates,
-      profile,
-      format: 'geojson',
       geometry_simplify: false,
       instructions: true,
       elevation: false

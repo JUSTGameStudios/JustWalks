@@ -74,8 +74,6 @@ const handler: Handler = async (event, context) => {
       locations: [start],
       range: [timeSeconds],
       range_type: 'time',
-      profile,
-      format: 'geojson',
       smoothing: 0.9
     }
 
