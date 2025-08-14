@@ -32,28 +32,33 @@ const handler: Handler = async (event, context) => {
   try {
     const { start, timeSeconds, profile = 'foot-walking' }: IsochroneRequest = JSON.parse(event.body || '{}')
     
+    console.log('Isochrone request:', { start, timeSeconds, profile })
+    
     if (!start || start.length !== 2) {
+      console.log('Invalid coordinates:', start)
       return {
         statusCode: 400,
         headers: {
           'Access-Control-Allow-Origin': '*',
         },
-        body: JSON.stringify({ error: 'Invalid start coordinates' }),
+        body: JSON.stringify({ error: 'Invalid start coordinates', received: start }),
       }
     }
 
     if (!timeSeconds || timeSeconds <= 0) {
+      console.log('Invalid time:', timeSeconds)
       return {
         statusCode: 400,
         headers: {
           'Access-Control-Allow-Origin': '*',
         },
-        body: JSON.stringify({ error: 'Invalid time parameter' }),
+        body: JSON.stringify({ error: 'Invalid time parameter', received: timeSeconds }),
       }
     }
 
     const orsApiKey = process.env.ORS_API_KEY
     if (!orsApiKey) {
+      console.log('No API key found')
       return {
         statusCode: 500,
         headers: {
@@ -62,6 +67,8 @@ const handler: Handler = async (event, context) => {
         body: JSON.stringify({ error: 'ORS API key not configured' }),
       }
     }
+    
+    console.log('API key found:', orsApiKey ? 'Yes' : 'No')
 
     const requestBody = {
       locations: [start],
