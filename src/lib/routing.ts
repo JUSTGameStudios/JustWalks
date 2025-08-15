@@ -152,19 +152,16 @@ async function generateCandidatesFromIsochrone(
   for (const waypoint of sampledPoints) {
     try {
       const routeResponse = await api.getRoute(start, waypoint)
-      console.log('Isochrone route response:', routeResponse)
       const routeFeature = routeResponse.features[0]
       
       if (!routeFeature) continue
       
-      console.log('Isochrone route feature properties:', routeFeature.properties)
       const coordinates: [number, number][] = routeFeature.geometry.coordinates.map(
         (coord: number[]) => [coord[1], coord[0]]
       )
       
-      const distance = routeFeature.properties.distance / 1000
-      const duration = routeFeature.properties.duration / 60
-      console.log('Isochrone parsed distance:', distance, 'duration:', duration)
+      const distance = routeFeature.properties.summary.distance / 1000
+      const duration = routeFeature.properties.summary.duration / 60
       const segments = segmentizeRoute(coordinates)
       const varietyScore = scoreRouteVariety(segments, recentRoutes)
       
@@ -216,8 +213,8 @@ async function generateCandidatesFromRadius(
         (coord: number[]) => [coord[1], coord[0]]
       )
       
-      const distance = routeFeature.properties.distance / 1000
-      const duration = routeFeature.properties.duration / 60
+      const distance = routeFeature.properties.summary.distance / 1000
+      const duration = routeFeature.properties.summary.duration / 60
       const segments = segmentizeRoute(coordinates)
       const varietyScore = scoreRouteVariety(segments, recentRoutes)
       
