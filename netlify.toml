@@ -4,8 +4,13 @@
   command = "npm run build"
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/api/isochrone"
+  to = "/.netlify/functions/isochrone"
+  status = 200
+
+[[redirects]]
+  from = "/api/route"
+  to = "/.netlify/functions/route"
   status = 200
 
 [build.environment]
